@@ -1,34 +1,31 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Deploy Svelte App to GitHub Pages
 
 on:
   push:
     branches:
-      - main  # Triggers the workflow on any push to the main branch
+      - main  # Adjust this if your main branch has a different name
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # The environment on which the job will run
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2  # Check out the code from the repository
+        uses: actions/checkout@v2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3  # Update to version 3
         with:
-          node-version: '16'  # Set the Node.js version
+          node-version: '20'  # Change to Node.js version 20
 
       - name: Install dependencies
-        run: npm install  # Install the necessary dependencies from package.json
+        run: npm install
 
       - name: Build the Svelte app
-        run: npm run build  # Run the build script to create a production version of your Svelte app
+        run: npm run build
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3  # Use this action to deploy the site to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # Access GitHub's token to deploy
-          publish_dir: ./public  # The directory containing the production build (Svelte's output is usually in 'public')
-
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public  # This assumes your build output is in the 'public' folder
